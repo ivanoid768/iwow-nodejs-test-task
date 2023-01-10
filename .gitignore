@@ -4,3 +4,4 @@ build/
 
 .env
 /src/temp/
+package-lock.json
