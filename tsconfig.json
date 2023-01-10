@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "es2018",
+        "lib": ["ES2018", "ESNext.AsyncIterable", "DOM"],
+        "module": "commonjs",
+        "outDir": "./build",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "paths": {
+            "class-validator": ["node_modules/class-validator"]
+		}
+    },
+    "include": [
+        "src/**/*",
+    ],
+    "exclude": ["node_modules", "build"]
+}
