@@ -11,7 +11,7 @@ import { hash, compare } from "bcrypt";
 
     this.password = hashed_password;
 })
-class UserClass {
+export class UserClass {
     @prop({
         required: true,
     })
