@@ -5,6 +5,7 @@ import {
     DocumentType,
 } from "@typegoose/typegoose";
 import { hash, compare } from "bcrypt";
+import { ObjectId } from "mongoose";
 
 @pre<UserClass>("save", async function () {
     let hashed_password = await hash(this.password, 10);
@@ -12,6 +13,9 @@ import { hash, compare } from "bcrypt";
     this.password = hashed_password;
 })
 export class UserClass {
+    @prop()
+    public _id!: ObjectId;
+
     @prop({
         required: true,
     })

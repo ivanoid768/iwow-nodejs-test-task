@@ -4,9 +4,12 @@ import { LawBranchModel } from "./models/LawBranch";
 import { LawyerModel } from "./models/Lawyer";
 
 import { startScheduler } from "./schedule";
+import { startServer } from "./server.api";
 
 async function main() {
-    // await connect('mongodb://127.0.0.1:27017/iwow_test_task')
+    await connect("mongodb://127.0.0.1:27017/iwow_test_task");
+
+    await startServer();
 
     // const branches = await LawBranchModel.find()
 
@@ -27,4 +30,4 @@ async function main() {
     startScheduler();
 }
 
-main().catch(e => console.log(e.message))
+main().catch((e) => console.log(e.message));
