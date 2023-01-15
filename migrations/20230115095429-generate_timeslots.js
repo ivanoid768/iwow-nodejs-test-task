@@ -7,6 +7,8 @@ const {
     lastDayOfMonth,
     nextMonday,
     nextSaturday,
+    previousMonday,
+    startOfDay,
 } = require("date-fns");
 
 module.exports = {
@@ -16,7 +18,7 @@ module.exports = {
         const lawyers = await db.collection("lawyerclasses").find().toArray();
 
         for (const lawyer of lawyers) {
-            let startWeek = nextMonday(Date.now());
+            let startWeek = startOfDay(previousMonday(Date.now()));
 
             for (
                 let weekStart = startWeek;
@@ -54,6 +56,6 @@ module.exports = {
     },
 
     async down(db, client) {
-        await db.collection("lawyerclasses").remove();
+        await db.collection("consultationtimeslotclasses").remove();
     },
 };
