@@ -1,10 +1,5 @@
 import express, { json } from "express";
-import session from "express-session";
 import passport from "passport";
-import { ObjectId } from "mongodb";
-import createMemoryStore from "memorystore";
-import { config } from "./config";
-import { UserClass, UserModel } from "./models/User";
 import { authRouter, lawyerRouter } from "./routers/index.router";
 import { jwtStrategy, verifyUser } from "./components/auth.component";
 
