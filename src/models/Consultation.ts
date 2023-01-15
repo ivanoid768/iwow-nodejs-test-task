@@ -13,8 +13,8 @@ export class ConsultationClass {
     @prop({ ref: () => ClientClass })
     public client!: Ref<ClientClass>;
 
-    @prop({ ref: () => ConsultationTimeslotClass })
-    public timeslot!: Ref<ConsultationTimeslotClass>;
+    // @prop({ ref: () => ConsultationTimeslotClass })
+    // public timeslot?: Ref<ConsultationTimeslotClass>;
 }
 
 export const ConsultationModel = getModelForClass(ConsultationClass);
