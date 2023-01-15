@@ -19,9 +19,6 @@ export const logIn = async (phone: number, password: string) => {
     return jwt.sign(
         {
             _id: user._id,
-            phone: user.phone,
-            name: user.name,
-            lastname: user.lastname,
         },
         config.JWT_SECRET,
         { expiresIn: "1h" }
@@ -40,7 +37,7 @@ export const jwtStrategy = new JwtStrategy(
                 if (err) {
                     return done(err, false);
                 }
-                else if (user) {
+                else if (user) {                    
                     return done(null, user);
                 }
                 else {
