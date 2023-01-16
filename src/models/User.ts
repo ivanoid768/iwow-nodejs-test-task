@@ -46,6 +46,10 @@ export class UserClass {
     ) {
         return compare(password, this.password);
     }
+
+    public getFullName() {
+        return `${this.lastname} ${this.name}`;
+    }
 }
 
 export const UserModel = getModelForClass(UserClass);

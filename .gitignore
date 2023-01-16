@@ -5,3 +5,5 @@ build/
 .env
 /src/temp/
 package-lock.json
+
+notify.log
