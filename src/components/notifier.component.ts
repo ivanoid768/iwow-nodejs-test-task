@@ -59,13 +59,13 @@ export const notifyClientsDayBefore = async () => {
 export const notifyClients2HoursBefore = async () => {
     const now = Date.now();
     const fromDate = addHours(now, 2);
-    const toDate = addHours(endOfHour(now), 2);
+    const toDate = addHours(now, 2);
 
     const timeslots = await ConsultationTimeslotModel.find(
         {
             start: {
                 $gte: fromDate,
-                $lt: toDate,
+                $lte: toDate,
             },
             isFree: false,
         },

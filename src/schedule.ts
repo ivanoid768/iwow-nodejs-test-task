@@ -1,11 +1,17 @@
 import { schedule } from "node-cron";
+import {
+    notifyClients2HoursBefore,
+    notifyClientsDayBefore,
+} from "./components/notifier.component";
 
 import { config } from "./config";
 
 export function startScheduler() {
-    if (config.RUN_CATEGORY_JOBS) {
-        schedule(config.RUN_CATEGORY_CRON, async () => {
-            // await addCategoryJobs();
-        });
-    }
+    schedule(config.RUN_CLIENT_DAY_BEFORE_NOTIFIER, async () => {
+        await notifyClientsDayBefore();
+    });
+
+    schedule(config.RUN_CLIENT_2HOURS_BEFORE_NOTIFIER, async () => {
+        await notifyClients2HoursBefore();
+    });
 }
