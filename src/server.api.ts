@@ -1,6 +1,6 @@
 import express, { json } from "express";
 import passport from "passport";
-import { authRouter, lawyerRouter, timeslotRouter } from "./routers/index.router";
+import { authRouter, consultationRouter, lawyerRouter, timeslotRouter } from "./routers/index.router";
 import { jwtStrategy, verifyUser } from "./components/auth.component";
 
 const app = express();
@@ -12,6 +12,7 @@ app.use(passport.initialize());
 app.use("/auth", authRouter);
 app.use("/lawyer", verifyUser, lawyerRouter);
 app.use("/timeslot", verifyUser, timeslotRouter);
+app.use("/consultation", verifyUser, consultationRouter);
 
 const port = 8080;
 
