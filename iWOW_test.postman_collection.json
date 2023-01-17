@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "de62d161-6417-45bc-a20a-734bfcaa502c",
+		"name": "iWOW test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25164174"
+	},
+	"item": [
+		{
+			"name": "login Lawyer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\": \"+7775553322\",\r\n    \"password\": \"passwordQ3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/auth/login/lawyer",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"auth",
+						"login",
+						"lawyer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login Client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\": \"+7775553322\",\r\n    \"password\": \"passwordQ3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/auth/login/client",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"auth",
+						"login",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lawyer list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/lawyer/list",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"lawyer",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "timeslots",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/timeslot/:lawyerId?page=2&perPage=5&fromDate=2023-01-17T00:00:00.000Z",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"timeslot",
+						":lawyerId"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "perPage",
+							"value": "5"
+						},
+						{
+							"key": "fromDate",
+							"value": "2023-01-17T00:00:00.000Z"
+						}
+					],
+					"variable": [
+						{
+							"key": "lawyerId",
+							"value": "63c68a598e1f2a3503091ebf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createConsultation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"theme\": \"Тема_Консультация_3\",\r\n    \"timeslotId\": \"63c68a598e1f2a3503091ee6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}:{{PORT}}/consultation/",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"consultation",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "PORT",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Nzc3NTU1MzMyMiwibmFtZSI6IkNsaWVudF8xIiwibGFzdG5hbWUiOiJDbGllbnRfMS5sYXN0bmFtZSIsImlhdCI6MTY3Mzc2NTI5MCwiZXhwIjoxNjczNzY4ODkwfQ.iW9ejqhC5mZ6okHpRuZ5PAxnlii45AQEElp028LknFM",
+			"type": "string"
+		}
+	]
+}
