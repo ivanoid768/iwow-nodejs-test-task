@@ -16,3 +16,8 @@ export const getTimeslotQuerySchema = Joi.object({
 export const getTimeslotParamsSchema = Joi.object({
     lawyerId: Joi.string().hex().required(),
 });
+
+export const saveConsultationParamsSchema = Joi.object({
+    theme: Joi.string().allow("").required(),
+    timeslotId: Joi.string().hex().required(),
+});

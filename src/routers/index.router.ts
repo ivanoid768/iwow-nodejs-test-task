@@ -9,6 +9,7 @@ import {
     getTimeslotParamsSchema,
     getTimeslotQuerySchema,
     loginBodySchema,
+    saveConsultationParamsSchema,
 } from "src/validators/index.validator";
 
 const validator = createValidator();
@@ -33,4 +34,8 @@ timeslotRouter.get(
 );
 
 export const consultationRouter = Router();
-consultationRouter.post("/", consultationController.createConsultation);
+consultationRouter.post(
+    "/",
+    validator.body(saveConsultationParamsSchema),
+    consultationController.createConsultation
+);
