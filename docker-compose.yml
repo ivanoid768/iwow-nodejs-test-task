@@ -1,42 +1,18 @@
 version: '3.5'
 
 services:
-  postgres:
-    container_name: fma-postgres
-    image: postgres
+  mongodb:
+    container_name: iwow-mongodb
+    image: mongo
     restart: always
     ports:
-      # - 27017
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: 7e39a446Q47dN4PN
-
-  redis:
-    # Настройка редис
-    # https://github.com/docker-library/redis/issues/55
-    # https://github.com/docker-library/redis/issues/35
-    container_name: fma-redis
-    image: redis:5.0-alpine
-    restart: always
-    ports:
-      - 6379:6379
-    volumes:
-      # - redis_db_data:/data
-      - ./dockerconfig/redis/:/usr/local/etc/redis/
-    command: redis-server /usr/local/etc/redis/redis.conf
-  
-  elasticsearch:
-    container_name: my-local-elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.1
-    restart: always
-    ports:
-      - 9200:9200
-      - 9300:9300
-    environment: 
-      discovery.type: single-node
+      - 27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 7e3934K6Q47dN4PN
 
   api:
-    container_name: fma-api
+    container_name: iwow-api
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -44,8 +20,8 @@ services:
     ports:
       - 4000:4000
     depends_on:
-      - postgres
+      - mongodb
 
 networks:
   default:
-    name: fma-network
+    name: iwow-network
