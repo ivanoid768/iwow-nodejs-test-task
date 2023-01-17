@@ -1,6 +1,17 @@
-import { getModelForClass } from "@typegoose/typegoose";
-import { UserClass } from "./User";
+import {
+    getDiscriminatorModelForClass,
+    getModelForClass,
+    index,
+} from "@typegoose/typegoose";
+import { UserClass, UserModel } from "./User";
 
+@index(
+    { phone: 1 },
+    { partialFilterExpression: { __t: { $eq: "ClientClass" } } }
+)
 export class ClientClass extends UserClass {}
 
-export const ClientModel = getModelForClass(ClientClass);
+export const ClientModel = getDiscriminatorModelForClass(
+    UserModel,
+    ClientClass
+);

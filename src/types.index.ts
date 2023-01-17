@@ -9,8 +9,14 @@ import {
     nextMonday,
     nextSaturday,
 } from "date-fns";
+import { ClientModel } from "./models/Client";
 import { ConsultationTimeslotModel } from "./models/ConsultationTimeslot";
 import { LawyerModel } from "./models/Lawyer";
+
+export enum UserRole {
+    Client = "ClientClass",
+    Lawyer = "LawyerClass",
+}
 
 export const SUB_NOTIFY_NEW_TASKS = "SUB_NOTIFY_NEW_TASKS";
 
@@ -49,4 +55,28 @@ export const generateTimeslots = async (consult_duration: number = 40) => {
             }
         }
     }
+};
+
+export const createClient = async () => {
+    let client = await ClientModel.create({
+        name: "Client_4.name",
+        lastname: "Client_4.lastname",
+        patronymic: "Client_4.patronymic",
+        phone: 79092349569,
+        password: "passwordQ3",
+    });
+
+    console.log(client, client.id, client._id);
+};
+
+export const createLawyer = async () => {
+    let client = await LawyerModel.create({
+        name: "Lawyer_4.name",
+        lastname: "Lawyer_4.lastname",
+        patronymic: "Lawyer_4.patronymic",
+        phone: 79092349569,
+        password: "passwordQ3",
+    });
+
+    console.log(client, client.id, client._id);
 };

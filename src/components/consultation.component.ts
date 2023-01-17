@@ -22,7 +22,7 @@ export const createConsultation = async (
     const lawyerId = timeslot.lawyer;
     const client = await ClientModel.findOne(
         { phone: user.phone },
-        { password: 0 }
+        { password: 0, __t: 0 }
     );
     if (!client) {
         throw new Error(`no_client_with_phone:${user.phone}`);
@@ -37,16 +37,22 @@ export const createConsultation = async (
     const lawyer = await LawyerModel.findById(lawyerId, {
         password: 0,
         lawBranches: 0,
+        __t: 0,
     });
 
     timeslot.isFree = false;
     timeslot.consultation = consultation;
     await timeslot.save();
 
+    const clientObj = client.toObject();
+    delete clientObj["__t"];
+    const lawyerObj = lawyer.toObject();
+    delete lawyerObj["__t"];
+
     return {
         theme: consultation.theme,
-        lawyer: lawyer,
-        client: client,
+        lawyer: lawyerObj,
+        client: clientObj,
         timeslot: {
             start: timeslot.start,
             end: timeslot.end,

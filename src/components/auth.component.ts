@@ -4,9 +4,29 @@ import { UserClass, UserModel } from "src/models/User";
 import { config } from "src/config";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import { ObjectId } from "mongodb";
+import { UserRole } from "src/types.index";
+import { ClientModel } from "src/models/Client";
+import { LawyerModel } from "src/models/Lawyer";
 
-export const logIn = async (phone: number, password: string) => {
-    const user = await UserModel.findOne({ where: { phone: phone } });
+import { BeAnObject, DocumentType } from "@typegoose/typegoose/lib/types";
+
+export const logIn = async (
+    phone: number,
+    password: string,
+    role: UserRole
+) => {
+    let user: DocumentType<UserClass, BeAnObject>;
+    if (role == UserRole.Client) {
+        user = await ClientModel.findOne({
+            where: { phone: phone },
+        });
+    } else if (role == UserRole.Lawyer) {
+        user = await LawyerModel.findOne({
+            where: { phone: phone },
+        });
+    } else {
+        throw new Error("invalid_role");
+    }
 
     if (!user) {
         throw new Error("invalid_phone");
@@ -19,6 +39,7 @@ export const logIn = async (phone: number, password: string) => {
     return jwt.sign(
         {
             _id: user._id,
+            role: role,
         },
         config.JWT_SECRET,
         { expiresIn: "1h" }
@@ -31,20 +52,35 @@ export const jwtStrategy = new JwtStrategy(
         secretOrKey: config.JWT_SECRET,
     },
     (jwt_payload, done) => {
-        UserModel.findOne(
-            { _id: new ObjectId(jwt_payload._id) },
-            (err: Error, user: UserClass) => {
-                if (err) {
-                    return done(err, false);
+        if (jwt_payload.role == UserRole.Client) {
+            ClientModel.findOne(
+                { _id: new ObjectId(jwt_payload._id) },
+                (err: Error, user: UserClass) => {
+                    if (err) {
+                        return done(err, false);
+                    } else if (user) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
                 }
-                else if (user) {                    
-                    return done(null, user);
+            );
+        } else if (jwt_payload.role == UserRole.Lawyer) {
+            LawyerModel.findOne(
+                { _id: new ObjectId(jwt_payload._id) },
+                (err: Error, user: UserClass) => {
+                    if (err) {
+                        return done(err, false);
+                    } else if (user) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
                 }
-                else {
-                    return done(null, false);
-                }
-            }
-        );
+            );
+        } else {
+            return done(null, false);
+        }
     }
 );
 

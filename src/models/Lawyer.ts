@@ -1,7 +1,17 @@
-import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
+import {
+    getDiscriminatorModelForClass,
+    getModelForClass,
+    index,
+    prop,
+    Ref,
+} from "@typegoose/typegoose";
 import { LawBranchClass } from "./LawBranch";
-import { UserClass } from "./User";
+import { UserClass, UserModel } from "./User";
 
+@index(
+    { phone: 1 },
+    { partialFilterExpression: { __t: { $eq: "LawyerClass" } } }
+)
 export class LawyerClass extends UserClass {
     @prop({
         ref: () => LawBranchClass,
@@ -10,4 +20,7 @@ export class LawyerClass extends UserClass {
     public lawBranches!: Ref<LawBranchClass>[];
 }
 
-export const LawyerModel = getModelForClass(LawyerClass);
+export const LawyerModel = getDiscriminatorModelForClass(
+    UserModel,
+    LawyerClass
+);

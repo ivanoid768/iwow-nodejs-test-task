@@ -3,6 +3,7 @@ import {
     pre,
     prop,
     DocumentType,
+    index,
 } from "@typegoose/typegoose";
 import { hash, compare } from "bcrypt";
 import { ObjectId } from "mongoose";
@@ -13,9 +14,6 @@ import { ObjectId } from "mongoose";
     this.password = hashed_password;
 })
 export class UserClass {
-    @prop()
-    public _id!: ObjectId;
-
     @prop({
         required: true,
     })
@@ -30,7 +28,6 @@ export class UserClass {
     public patronymic?: string;
 
     @prop({
-        unique: true,
         required: true,
     })
     public phone!: number;

@@ -1,3 +1,4 @@
+import { compareAsc } from "date-fns";
 import { ObjectId } from "mongodb";
 import { ConsultationTimeslotModel } from "src/models/ConsultationTimeslot";
 
@@ -20,16 +21,19 @@ export const getTimeslots = async (
     } = { lawyer: new ObjectId(lawyerId) };
 
     if (fromDate) {
-        startFiler.$gt = fromDate;
+        startFiler.$gt =
+            compareAsc(fromDate, Date.now()) < 0
+                ? new Date(Date.now())
+                : fromDate;
+    } else {
+        startFiler.$gt = new Date(Date.now());
     }
 
     if (toDate) {
         startFiler.$lt = toDate;
     }
 
-    if (fromDate || toDate) {
-        filter.start = startFiler;
-    }
+    filter.start = startFiler;
 
     const timeslots = await ConsultationTimeslotModel.find(
         filter,

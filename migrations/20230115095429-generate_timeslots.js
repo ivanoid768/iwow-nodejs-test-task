@@ -5,7 +5,6 @@ const {
     addWeeks,
     compareAsc,
     lastDayOfMonth,
-    nextMonday,
     nextSaturday,
     previousMonday,
     startOfDay,
@@ -15,7 +14,7 @@ module.exports = {
     async up(db, client) {
         const consult_duration = 40;
 
-        const lawyers = await db.collection("lawyerclasses").find().toArray();
+        const lawyers = await db.collection("userclasses").find({__t:'LawyerClass'}).toArray();
 
         for (const lawyer of lawyers) {
             let startWeek = startOfDay(previousMonday(Date.now()));
