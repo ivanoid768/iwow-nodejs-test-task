@@ -18,6 +18,6 @@ export const getTimeslotParamsSchema = Joi.object({
 });
 
 export const saveConsultationParamsSchema = Joi.object({
-    theme: Joi.string().allow("").required(),
+    theme: Joi.string().allow("").max(300).required(),
     timeslotId: Joi.string().hex().required(),
 });

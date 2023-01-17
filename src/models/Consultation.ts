@@ -4,7 +4,9 @@ import { ConsultationTimeslotClass } from "./ConsultationTimeslot";
 import { LawyerClass } from "./Lawyer";
 
 export class ConsultationClass {
-    @prop()
+    @prop({
+        maxlength: 300,
+    })
     public theme!: string;
 
     @prop({ ref: () => LawyerClass })
