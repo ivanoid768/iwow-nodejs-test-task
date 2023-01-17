@@ -7,6 +7,7 @@ import {
 } from "@typegoose/typegoose";
 import { hash, compare } from "bcrypt";
 import { ObjectId } from "mongoose";
+import { passwordRegexp, phoneRegexp } from "src/common.index";
 
 @pre<UserClass>("save", async function () {
     let hashed_password = await hash(this.password, 10);
@@ -16,24 +17,31 @@ import { ObjectId } from "mongoose";
 export class UserClass {
     @prop({
         required: true,
+        maxlength: 100,
     })
     public name!: string;
 
     @prop({
         required: true,
+        maxlength: 100,
     })
     public lastname!: string;
 
-    @prop()
+    @prop({
+        required: false,
+        maxlength: 100,
+    })
     public patronymic?: string;
 
     @prop({
         required: true,
+        match: phoneRegexp,
     })
-    public phone!: number;
+    public phone!: string;
 
     @prop({
         required: true,
+        match: passwordRegexp,
     })
     public password!: string;
 
