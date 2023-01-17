@@ -6,7 +6,7 @@ services:
     image: mongo
     restart: always
     ports:
-      - 27017
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 7e3934K6Q47dN4PN
@@ -18,7 +18,7 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     ports:
-      - 4000:4000
+      - 8080:8080
     depends_on:
       - mongodb
 
