@@ -2,6 +2,17 @@ import Joi from "joi";
 import { passwordRegexp, phoneRegexp } from "src/common.index";
 
 export const loginBodySchema = Joi.object({
-    phone: Joi.string().pattern(phoneRegexp),
-    password: Joi.string().pattern(passwordRegexp),
+    phone: Joi.string().pattern(phoneRegexp).required(),
+    password: Joi.string().pattern(passwordRegexp).required(),
+});
+
+export const getTimeslotQuerySchema = Joi.object({
+    page: Joi.number().integer().positive(),
+    perPage: Joi.number().integer().positive(),
+    fromDate: Joi.date(),
+    toDate: Joi.date(),
+});
+
+export const getTimeslotParamsSchema = Joi.object({
+    lawyerId: Joi.string().hex().required(),
 });

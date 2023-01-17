@@ -3,26 +3,23 @@ import { Request, Response } from "express";
 import { getTimeslots } from "src/components/timeslot.component";
 
 class TimeslotController {
-    /**
-     * getLawyers
-     */
     public async getLawyerTimeslots(req: Request, res: Response) {
         try {
             let fromDate = null;
             let toDate = null;
 
-            if (req.query["fromDate"]) {
-                fromDate = parseISO(req.query["fromDate"] as string);
+            if (req.query.fromDate) {
+                fromDate = new Date(req.query.fromDate as string);
             }
 
-            if (req.query["toDate"]) {
-                toDate = parseISO(req.query["toDate"] as string);
+            if (req.query.toDate) {
+                toDate = new Date(req.query.toDate as string);
             }
 
             const timeslots = await getTimeslots(
-                req.params["lawyerId"],
-                parseInt(req.query["page"] as string) || undefined,
-                parseInt(req.query["perPage"] as string) || undefined,
+                req.params.lawyerId,
+                req.query.page as unknown as number,
+                req.query.perPage as unknown as number,
                 fromDate,
                 toDate
             );

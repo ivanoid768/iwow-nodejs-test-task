@@ -5,7 +5,11 @@ import { consultationController } from "src/controllers/consultation.controller"
 import { lawyerController } from "src/controllers/lawyer.controller";
 import { timeslotController } from "src/controllers/timeslot.controller";
 import { UserRole } from "src/types.index";
-import { loginBodySchema } from "src/validators/index.validator";
+import {
+    getTimeslotParamsSchema,
+    getTimeslotQuerySchema,
+    loginBodySchema,
+} from "src/validators/index.validator";
 
 const validator = createValidator();
 
@@ -21,7 +25,12 @@ export const lawyerRouter = Router();
 lawyerRouter.get("/list", lawyerController.getLawyers);
 
 export const timeslotRouter = Router();
-timeslotRouter.get("/:lawyerId", timeslotController.getLawyerTimeslots);
+timeslotRouter.get(
+    "/:lawyerId",
+    validator.query(getTimeslotQuerySchema),
+    validator.params(getTimeslotParamsSchema),
+    timeslotController.getLawyerTimeslots
+);
 
 export const consultationRouter = Router();
 consultationRouter.post("/", consultationController.createConsultation);
