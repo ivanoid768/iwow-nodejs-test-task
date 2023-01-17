@@ -1,12 +1,14 @@
-// In this file you can configure migrate-mongo
+require('dotenv').config()
+const { env } = require('process');
 
+// In this file you can configure migrate-mongo
 const config = {
     mongodb: {
         // TODO Change (or review) the url to your MongoDB:
-        url: "mongodb://127.0.0.1:27017",
+        url: env.MONGO_CONN_STRING || "mongodb://127.0.0.1:27017/iwow_test_task",
 
-        // TODO Change this to your database name:
-        databaseName: "iwow_test_task",
+        // // TODO Change this to your database name:
+        // databaseName: "iwow_test_task",
 
         options: {
             useNewUrlParser: true, // removes a deprecation warning when connecting
